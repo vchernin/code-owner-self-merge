@@ -44,7 +44,7 @@ async function commentOnMergablePRs() {
 
   const co = new Codeowners(cwd);
   core.info(`Code-owners file found at: ${co.codeownersFilePath}`)
-  core.info(`repo details are ${thisRepo}`)
+  core.info(`repo details are ${JSON.stringify(thisRepo)}`)
   const changedFiles = await getPRChangedFiles(octokit, thisRepo, pr.number)
   core.info(`Changed files: \n - ${changedFiles.join("\n - ")}`)
 
