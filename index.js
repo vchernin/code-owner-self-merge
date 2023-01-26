@@ -44,7 +44,7 @@ async function commentOnMergablePRs() {
 
   const co = new Codeowners(cwd);
   core.info(`Code-owners file found at: ${co.codeownersFilePath}`)
-
+  core.info(`repo details are ${thisRepo}`)
   const changedFiles = await getPRChangedFiles(octokit, thisRepo, pr.number)
   core.info(`Changed files: \n - ${changedFiles.join("\n - ")}`)
 
@@ -306,7 +306,7 @@ function findCodeOwnersForChangedFiles(changedFiles, cwd)  {
 
 async function getPRChangedFiles(octokit, repoDeets, prNumber) {
   // https://developer.github.com/v3/pulls/#list-pull-requests-files
-  const options = octokit.pulls.listFiles.endpoint.merge({...repoDeets, pull_number: prNumber });
+  const options = octokit.rest.pulls.listFiles.endpoint.merge({...repoDeets, pull_number: prNumber });
 
   /** @type { import("@octokit/types").PullsListFilesResponseData} */
   const files = await octokit.paginate(options)
